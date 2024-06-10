@@ -10,11 +10,6 @@ RUN apt-get update && apt-get install -y wget apt-transport-https unzip && \
     dpkg -i microsoft-edge.deb || apt-get -f install -y && \
     apt-get install -y microsoft-edge-stable
 
-# Download and install msedgedriver in the working directory
-RUN wget https://msedgedriver.azureedge.net/125.0.2535.92/edgedriver_linux64.zip -O msedgedriver.zip && \
-    unzip msedgedriver.zip -d /home/wattpad_mate/ && \
-    rm msedgedriver.zip
-
 # Copy the files needed to install the dependencies
 COPY requirements.txt ./
 
@@ -24,6 +19,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the rest of the files
 COPY ./web_scraping/wattpad_scraping.py .
 COPY ./images ./images
+COPY ./web_scraping/msedgedriver .
 
 # Expose the port to be used by the application
 EXPOSE 8501
