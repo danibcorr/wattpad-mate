@@ -200,7 +200,7 @@ def scrape_page(urls: str, limit_users: int = 200) -> dict:
     # Initialize the browser driver (in this case, Edge)
     options = Options()
     options.binary_location = r'./msedgedriver'
-    options.add_argument('--headless')  
+    options.add_argument("--headless=new")
     driver = webdriver.Edge(options = options)
 
     # Opens the web page

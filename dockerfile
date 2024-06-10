@@ -17,9 +17,8 @@ COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the rest of the files
-COPY ./web_scraping/wattpad_scraping.py .
+COPY ./web_scraping/ .
 COPY ./images ./images
-COPY ./web_scraping/msedgedriver .
 
 # Expose the port to be used by the application
 EXPOSE 8501
