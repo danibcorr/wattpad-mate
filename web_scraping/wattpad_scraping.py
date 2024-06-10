@@ -12,6 +12,7 @@ import re
 from IPython.display import display, HTML
 from selenium import webdriver
 from selenium.webdriver.edge.service import Service
+from selenium.webdriver.edge.options import Options
 
 # %%  Global variables/parameters
 
@@ -197,7 +198,9 @@ def scrape_page(urls: str, limit_users: int = 200) -> dict:
     """
 
     # Initialize the browser driver (in this case, Edge)
-    driver = webdriver.Edge()
+    options = Options()
+    options.binary_location = r'./msedgedriver'
+    driver = webdriver.Edge(options = options)
 
     # Opens the web page
     driver.get(urls)

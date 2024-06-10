@@ -1,7 +1,32 @@
+# Uses an official Python image as a basis
 FROM python:3
-RUN mkdir -p /home/wattpad_mate
+
+# Create and set the working directory
 WORKDIR /home/wattpad_mate
-COPY . /home/wattpad_mate
+
+# Install necessary packages and Microsoft Edge
+RUN apt-get update && apt-get install -y wget apt-transport-https unzip && \
+    wget https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-stable/microsoft-edge-stable_125.0.2535.92-1_amd64.deb -O microsoft-edge.deb && \
+    dpkg -i microsoft-edge.deb || apt-get -f install -y && \
+    apt-get install -y microsoft-edge-stable
+
+# Download and install msedgedriver in the working directory
+RUN wget https://msedgedriver.azureedge.net/125.0.2535.92/edgedriver_linux64.zip -O msedgedriver.zip && \
+    unzip msedgedriver.zip -d /home/wattpad_mate/ && \
+    rm msedgedriver.zip
+
+# Copy the files needed to install the dependencies
+COPY requirements.txt ./
+
+# Install the required dependencies
 RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the rest of the files
+COPY ./web_scraping/wattpad_scraping.py .
+COPY ./images ./images
+
+# Expose the port to be used by the application
 EXPOSE 8501
-CMD ["python", "streamlit run ./web_scraping/wattpad_scraping.py"]
+
+# Command to start the application
+CMD ["streamlit", "run", "wattpad_scraping.py"]
