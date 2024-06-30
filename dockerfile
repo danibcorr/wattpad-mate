@@ -1,14 +1,21 @@
 # Uses an official Python image as a basis
-FROM python:3
+FROM python:3-slim
 
 # Create and set the working directory
 WORKDIR /home/wattpad_mate
 
-# Install necessary packages and Microsoft Edge
-RUN apt-get update && apt-get install -y wget apt-transport-https unzip && \
-    wget https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-stable/microsoft-edge-stable_125.0.2535.92-1_amd64.deb -O microsoft-edge.deb && \
-    dpkg -i microsoft-edge.deb || apt-get -f install -y && \
-    apt-get install -y microsoft-edge-stable
+# Install necessary packages and Google Chrome
+RUN apt-get update && apt-get install -y wget apt-transport-https gnupg unzip && \
+    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+    sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list' && \
+    apt-get update && apt-get install -y google-chrome-stable && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install ChromeDriver
+RUN CHROME_DRIVER_VERSION=`wget -qO- https://chromedriver.storage.googleapis.com/LATEST_RELEASE` && \
+    wget -O /tmp/chromedriver.zip https://chromedriver.storage.googleapis.com/${CHROME_DRIVER_VERSION}/chromedriver_linux64.zip && \
+    unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/ && \
+    rm /tmp/chromedriver.zip
 
 # Copy the files needed to install the dependencies
 COPY requirements.txt ./
