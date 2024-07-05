@@ -13,6 +13,7 @@ from IPython.display import display, HTML
 from selenium import webdriver
 from selenium.webdriver.edge.service import Service
 from selenium.webdriver.edge.options import Options
+import os
 
 # %%  Global variables/parameters
 
@@ -197,10 +198,14 @@ def scrape_page(urls: str, limit_users: int = 200) -> dict:
         dict: Dictionary with user information
     """
 
-    # Initialize the browser driver (in this case, Edge)
     options = Options()
-    options.binary_location = r'./msedgedriver'
     options.add_argument("--headless=new")
+
+    # Initialize the browser driver (in this case, Edge)
+    if os.name == "posix":
+
+        options.binary_location = r'./msedgedriver'
+
     driver = webdriver.Edge(options = options)
 
     # Opens the web page
@@ -303,6 +308,22 @@ def main() -> None:
 
             # Scraping the page
             dictionary = scrape_page(url_input, limit_users_input)
+
+            # Find the maximum length of lists in dictionary
+            max_len = max(len(lst) for lst in dictionary.values())
+
+            # Make all lists in dictionary the same length
+            for key, value in dictionary.items():
+
+                if len(value) < max_len:
+                
+                    if len(value) == 0:
+                
+                        dictionary[key] = [np.nan]*max_len
+                
+                    else:
+                
+                        dictionary[key] = value + [np.nan]*(max_len - len(value))
 
             # Creation of the pandas dataframe
             data = pd.DataFrame(dictionary)
