@@ -1,5 +1,7 @@
 services:
-  streamlit-wattpad:
-    build: .
+  wattpad-mate:
+    build: 
+      context: .
+      dockerfile: ./dockerfile
     ports:
       - "8501:8501"

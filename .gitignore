@@ -1,6 +1,3 @@
-datasets
-name_gender_classifier
-
 # Ignore Python-related files and directories
 *.pyc
 *.pyo
@@ -12,3 +9,5 @@ dist/
 
 # Ignore IDE-specific files and directories
 .vscode/
+
+src/logs

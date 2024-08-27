@@ -5,30 +5,30 @@ FROM python:3-slim
 WORKDIR /home/wattpad_mate
 
 # Install necessary packages and Google Chrome
-RUN apt-get update && apt-get install -y wget apt-transport-https gnupg unzip && \
-    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
-    sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list' && \
-    apt-get update && apt-get install -y google-chrome-stable && \
-    rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y \
+    wget \
+    apt-transport-https \
+    gnupg \
+    unzip \
+    && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /usr/share/keyrings/google-linux-keyring.gpg \
+    && sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-linux-keyring.gpg] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list' \
+    && apt-get update && apt-get install -y google-chrome-stable \
+    && rm -rf /var/lib/apt/lists/*
 
-# Install ChromeDriver
-RUN CHROME_DRIVER_VERSION=`wget -qO- https://chromedriver.storage.googleapis.com/LATEST_RELEASE` && \
-    wget -O /tmp/chromedriver.zip https://chromedriver.storage.googleapis.com/${CHROME_DRIVER_VERSION}/chromedriver_linux64.zip && \
-    unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/ && \
-    rm /tmp/chromedriver.zip
-
-# Copy the files needed to install the dependencies
-COPY requirements.txt ./
+# Copy dependency files first to leverage Docker cache
+COPY ./pyproject.toml ./poetry.lock ./
 
 # Install the required dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir poetry \
+    && poetry install --no-root \
+    && rm -rf /root/.cache/pip
 
-# Copy the rest of the files
-COPY ./web_scraping/ .
+# Copy the rest of the application files
+COPY ./src ./src
 COPY ./images ./images
 
 # Expose the port to be used by the application
 EXPOSE 8501
 
 # Command to start the application
-CMD ["streamlit", "run", "wattpad_scraping.py"]
+CMD ["poetry", "run", "streamlit", "run", "./src/main.py"]
