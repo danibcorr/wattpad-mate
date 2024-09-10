@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 from loguru import logger
 
 from scraping.wattpad_scraping import scrape_page, get_user_info, make_clickable
