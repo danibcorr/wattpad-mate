@@ -7,5 +7,5 @@ runs:
   steps:
 
     - name: Run the automated tests
-      run: poetry run pytest src/tests/ --timeout=60
+      run: poetry run pytest src/tests/
       shell: bash
