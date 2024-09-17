@@ -1,11 +1,7 @@
 name: Test Wattpad Mate Application
-
 runs:
-
   using: composite
-
   steps:
-
     - name: Run the automated tests
       run: poetry run pytest src/tests/
       shell: bash

@@ -1,19 +1,13 @@
 name: Build and Test Docker Image Wattpad Mate Application
-
 runs:
-
   using: composite
-
   steps:
-
     - name: Build Docker Image
-      run: docker build -t wattpad-mate:latest .
+      run: 'docker build -t wattpad-mate:latest .'
       shell: bash
-
     - name: Run Docker container
       run: docker run --name wattpad-mate-container -d wattpad-mate
       shell: bash
-
     # This line checks if the container is running. If the container is running, the grep command 
     # will find a match and the step will be considered successful. If it is not running, there 
     # will be no match and the step will fail.

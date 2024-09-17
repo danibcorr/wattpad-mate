@@ -1,27 +1,22 @@
 name: Wattpad Mate
-
-on:
-    push:
-        branches: ["main"]
-    pull_request:
-        branches: ["main"]
-
+'on':
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 permissions:
-    contents: read
-
+  contents: read
 jobs:
-    build:
-        runs-on: ubuntu-latest
-
-        steps:
-            - name: Checkout repository
-              uses: actions/checkout@v4
-      
-            - name: Build Wattpad Mate Application
-              uses: ./.github/actions/build-application
-            
-            - name: Test Wattpad Mate Application
-              uses: ./.github/actions/test-application
-
-            - name: Build and Test Docker Image Wattpad Mate
-              uses: ./.github/actions/build-docker-image
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Build Wattpad Mate Application
+        uses: ./.github/actions/build-application
+      - name: Test Wattpad Mate Application
+        uses: ./.github/actions/test-application
+      - name: Build Docker Image for Wattpad Mate
+        uses: ./.github/actions/build-docker-image
