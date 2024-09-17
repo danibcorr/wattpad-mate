@@ -23,5 +23,5 @@ runs:
 
         - name: Install dependencies using Poetry
           if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-          run: poetry run make install
+          run: poetry install
           shell: bash
