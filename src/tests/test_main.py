@@ -2,6 +2,7 @@ from streamlit.testing.v1 import AppTest
 
 from main import main
 
+
 def test_main():
     """
     Test the main function of the Wattpad scraper.
