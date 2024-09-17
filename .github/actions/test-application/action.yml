@@ -6,17 +6,9 @@ runs:
 
   steps:
 
-    - name: Use Streamlit App Actions
-      uses: streamlit/streamlit-app-action@v0.0.3
-      with:
-        app-path: src/main.py
-        ruff: true
-        pytest-args: -v --junitxml=test-results.xml
+    - name: Lint with flake8 
+      run: poetry run flake8 src/
 
-    - name: Upload Pytest results
-      if: always()
-      uses: pmeier/pytest-results-action@v0.6.0
-      with:
-        path: test-results.xml
-        summary: true
-        display-options: fEX
+    - name: Run the automated tests
+      run: poetry run pytest src/tests/ --timeout=60
+      shell: bash
