@@ -1,5 +1,3 @@
-import pytest
-
 from wattpad_scraping import (
     clean_names,
     convert_to_number,

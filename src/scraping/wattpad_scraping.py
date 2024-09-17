@@ -1,6 +1,4 @@
-import os
 import requests
-import json
 import time
 import re
 
@@ -8,7 +6,6 @@ import pandas as pd
 import numpy as np
 from bs4 import BeautifulSoup
 from names_dataset import NameDataset, NameWrapper
-from IPython.display import display, HTML
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
