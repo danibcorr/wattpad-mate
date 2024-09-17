@@ -21,6 +21,7 @@ runs:
             path: .venv
             key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
 
-        - name: Install dependencies using poetry
+        - name: Install dependencies using Poetry
           if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
           run: poetry run make install
+          shell: bash
