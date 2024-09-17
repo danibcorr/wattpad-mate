@@ -1,18 +1,22 @@
 name: Test Wattpad Mate Application
 
 runs:
-    using: composite
 
-    steps:
-        - name: Use Streamlit App Actions
-          uses: streamlit/streamlit-app-action@v0.0.3
-          with:
-            app-path: ./src/main.py
-            ruff: true
-            pytest-args: -v --junit-xml=test-results.xml
-        - if: always()
-          uses: pmeier/pytest-results-action@v0.6.0
-          with:
-            path: test-results.xml
-            summary: true
-            display-options: fEX
+  using: composite
+
+  steps:
+
+    - name: Use Streamlit App Actions
+      uses: streamlit/streamlit-app-action@v0.0.3
+      with:
+        app-path: src/main.py
+        ruff: true
+        pytest-args: -v --junitxml=test-results.xml
+
+    - name: Upload Pytest results
+      if: always()
+      uses: pmeier/pytest-results-action@v0.6.0
+      with:
+        path: test-results.xml
+        summary: true
+        display-options: fEX

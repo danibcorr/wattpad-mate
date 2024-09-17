@@ -1,4 +1,3 @@
-import streamlit as st
 from streamlit.testing.v1 import AppTest
 
 from main import main
