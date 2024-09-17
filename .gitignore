@@ -6,6 +6,7 @@
 build/
 dist/
 **/__pycache__/
+.pytest_cache
 
 # Ignore IDE-specific files and directories
 .vscode/

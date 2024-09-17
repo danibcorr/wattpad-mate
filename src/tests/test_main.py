@@ -2,7 +2,6 @@ from streamlit.testing.v1 import AppTest
 
 from main import main
 
-
 def test_main():
     """
     Test the main function of the Wattpad scraper.
@@ -10,7 +9,7 @@ def test_main():
     This test function uses mock objects to simulate user inputs and the scraping process.
     It checks if the main function correctly calls the scrape_page function with the right parameters.
     """
-    at = AppTest.from_file("src/main.py")
+    at = AppTest.from_file("./src/main.py", default_timeout=60).run()
 
     # Simulate text input (URL)
     at.text_input(key="url_input").set_value(

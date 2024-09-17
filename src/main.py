@@ -35,7 +35,7 @@ def main() -> None:
         url_input = st.text_input(
             "Enter URL:",
             value="https://www.wattpad.com/stories/juvenil%2cnovelajuvenil/new?prev=novelajuvenil",
-            key="url_input",
+            key="url_input"
         )
         min_visits_input = st.number_input(
             "Minimum visits:", value=10, min_value=0, key="min_visits_input"

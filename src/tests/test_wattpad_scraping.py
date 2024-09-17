@@ -1,4 +1,4 @@
-from wattpad_scraping import (
+from scraping.wattpad_scraping import (
     clean_names,
     convert_to_number,
     make_clickable,
