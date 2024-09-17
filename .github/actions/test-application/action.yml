@@ -8,6 +8,7 @@ runs:
 
     - name: Lint with flake8 
       run: poetry run flake8 src/
+      shell: bash
 
     - name: Run the automated tests
       run: poetry run pytest src/tests/ --timeout=60
