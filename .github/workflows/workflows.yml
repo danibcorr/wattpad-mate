@@ -22,3 +22,6 @@ jobs:
             
             - name: Test Wattpad Mate Application
               uses: ./.github/actions/test-application
+
+            - name: Build and Test Docker Image Wattpad Mate
+              uses: ./.github/actions/build-docker-image

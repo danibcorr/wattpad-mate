@@ -29,7 +29,9 @@ Wattpad Mate is a handy Streamlit app that extracts data from Wattpad pages. It 
 - **Pandas & NumPy:** For ETL (Extract, Transform, Load) processes of Wattpad data.
 - **BeautifulSoup & Selenium:** For scraping data from Wattpad, as there is no API available.
 - **Loguru:** For logging and managing application logs.
-
+- pytest
+- GitHub Actions
+  
 ## **⚠️ Note**
 
 This app is meant for educational use only. It does not store user data and should not be used to scrape data from Wattpad without their explicit permission. Please respect Wattpad’s terms of service and use this tool responsibly. We disclaim any responsibility for misuse or unauthorized data scraping.
