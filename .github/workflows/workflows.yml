@@ -1,0 +1,24 @@
+name: Wattpad Mate
+
+on:
+    push:
+        branches: ["main"]
+    pull_request:
+        branches: ["main"]
+
+permissions:
+    contents: read
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+      
+            - name: Build Wattpad Mate Application
+              uses: ./.github/actions/build-application
+            
+            - name: Test Wattpad Mate Application
+              uses: ./.github/actions/test-application

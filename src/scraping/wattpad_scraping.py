@@ -157,6 +157,8 @@ def get_usernames(authors: list[str]) -> list[str]:
         list: List of usernames
     """
 
+    logger.info("Extracting usernames from author links...")
+
     usernames = []
 
     for autor in authors:
@@ -186,8 +188,10 @@ def scrape_page(urls: str, limit_users: int = 200) -> dict:
 
     try:
         options = Options()
-        options.add_argument("--headless=new")  # Run Chrome in headless mode
-        options.add_argument("--no-sandbox")  # Bypass OS security model
+        # Run Chrome in headless mode
+        options.add_argument("--headless=new")
+        # Bypass OS security model
+        options.add_argument("--no-sandbox")
 
         # Initialize the browser driver (in this case, Chrome)
         chrome_service = Service()

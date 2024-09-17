@@ -35,14 +35,25 @@ def main() -> None:
         url_input = st.text_input(
             "Enter URL:",
             value="https://www.wattpad.com/stories/juvenil%2cnovelajuvenil/new?prev=novelajuvenil",
+            key="url_input",
         )
-        min_visits_input = st.number_input("Minimum visits:", value=10, min_value=0)
-        max_visits_input = st.number_input("Maximum visits:", value=100000, min_value=0)
-        min_votes_input = st.number_input("Minimum votes:", value=10, min_value=0)
-        max_votes_input = st.number_input("Maximum votes:", value=500, min_value=0)
-        limit_users_input = st.number_input("User limit:", value=20, min_value=1)
+        min_visits_input = st.number_input(
+            "Minimum visits:", value=10, min_value=0, key="min_visits_input"
+        )
+        max_visits_input = st.number_input(
+            "Maximum visits:", value=100000, min_value=0, key="max_visits_input"
+        )
+        min_votes_input = st.number_input(
+            "Minimum votes:", value=10, min_value=0, key="min_votes_input"
+        )
+        max_votes_input = st.number_input(
+            "Maximum votes:", value=500, min_value=0, key="max_votes_input"
+        )
+        limit_users_input = st.number_input(
+            "User limit:", value=20, min_value=1, key="limit_users_input"
+        )
 
-        state_button = st.button("Start Scraping")
+        state_button = st.button("Start Scraping", key="start_scraping")
 
         if state_button:
 
@@ -89,6 +100,9 @@ def main() -> None:
 
             # Show the result
             data_show["Links"] = data_show["Links"].apply(make_clickable)
+
+            # Show success message
+            st.success("Successfully obtained data")
 
     if state_button:
 
